@@ -1,5 +1,6 @@
-import { app, BrowserWindow, autoUpdater } from "electron";
+import { app, BrowserWindow, dialog, autoUpdater } from "electron";
 import * as path from "path";
+import {} from 'electron-updater';
 
 function createWindow() {
   // Create the browser window.
@@ -16,10 +17,12 @@ function createWindow() {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-  console.log('-----------')
-  console.log(autoUpdater.getFeedURL());
-  console.log('-----------')
+  autoUpdater.checkForUpdates();
 }
+
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+  autoUpdater.quitAndInstall()
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
